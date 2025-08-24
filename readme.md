@@ -2,7 +2,7 @@
 
 This repository contains solutions for the BitHealth technical assessment covering three main areas: Python data processing, SQL querying, and FastAPI development with LLM integration.
 
-## Repository Structure
+## Repository Folder Structure
 
 ### 1: Python Data Processing
 - `filter_patients.ipynb` - Jupyter notebook with patient data filtering logic
@@ -69,7 +69,10 @@ The solution uses pandas for data manipulation and implements a clean filtering 
 The filtering identified **2 patients** meeting the criteria:
 - **Andi (45 years)**: 3 symptoms - "demam, batuk, sesak napas"
 - **Gio (49 years)**: 3 symptoms - "menggigil, batuk, sakit kepala"
-
+### Tokenize Output on ipynb
+![alt text](image-3.png)
+### Filtering Output on ipynb
+![alt text](image-4.png)
 ---
 
 ## Case 2: SQL - Patient Visit Insights
