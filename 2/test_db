@@ -1,0 +1,75 @@
+import sqlite3
+
+# Connect to database
+conn = sqlite3.connect('hospital.db')
+cursor = conn.cursor()
+
+def test_database_structure():
+    print("=== Testing Database Structure ===\n")
+    
+    # Get list of tables
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
+    print(f"Tables found: {[table[0] for table in tables]}\n")
+    
+    # Check each table structure
+    for table in ['patients', 'visits', 'symptoms']:
+        print(f"--- {table.upper()} TABLE ---")
+        cursor.execute(f"PRAGMA table_info({table});")
+        columns = cursor.fetchall()
+        
+        for column in columns:
+            col_id, name, data_type, not_null, default, primary_key = column
+            print(f"  {name}: {data_type}" + 
+                  (" (PRIMARY KEY)" if primary_key else "") + 
+                  (" (NOT NULL)" if not_null else ""))
+        print()
+    
+    # Test inserting one record in each table
+    print("=== Testing Data Insertion ===")
+    
+    try:
+        # Insert test patient
+        cursor.execute("INSERT INTO patients (name, age) VALUES (?, ?)", ("Test Patient", 45))
+        patient_id = cursor.lastrowid
+        print(f"✅ Test patient inserted with ID: {patient_id}")
+        
+        # Insert test visit
+        cursor.execute("INSERT INTO visits (patient_id, department, visit_date) VALUES (?, ?, ?)", 
+                      (patient_id, "Neurology", "2025-08-23"))
+        visit_id = cursor.lastrowid
+        print(f"✅ Test visit inserted with ID: {visit_id}")
+        
+        # Insert test symptoms
+        cursor.execute("INSERT INTO symptoms (visit_id, symptom) VALUES (?, ?)", (visit_id, "pusing"))
+        cursor.execute("INSERT INTO symptoms (visit_id, symptom) VALUES (?, ?)", (visit_id, "mual"))
+        print("✅ Test symptoms inserted")
+        
+        # Verify with a simple join query
+        cursor.execute("""
+        SELECT p.name, p.age, v.department, COUNT(s.symptom) as symptom_count
+        FROM patients p
+        JOIN visits v ON p.id = v.patient_id
+        JOIN symptoms s ON v.id = s.visit_id
+        GROUP BY p.id, v.id
+        """)
+        
+        result = cursor.fetchone()
+        print(f"✅ Test query result: {result}")
+        
+        # Clean up test data
+        cursor.execute("DELETE FROM symptoms WHERE visit_id = ?", (visit_id,))
+        cursor.execute("DELETE FROM visits WHERE id = ?", (visit_id,))
+        cursor.execute("DELETE FROM patients WHERE id = ?", (patient_id,))
+        print("✅ Test data cleaned up")
+        
+        conn.commit()
+        print("\n🎉 Database structure test PASSED!")
+        
+    except Exception as e:
+        print(f"❌ Error during testing: {e}")
+        conn.rollback()
+
+if __name__ == "__main__":
+    test_database_structure()
+    conn.close()
