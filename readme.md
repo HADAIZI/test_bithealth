@@ -4,11 +4,11 @@ This repository contains solutions for the BitHealth technical assessment coveri
 
 ## Repository Structure
 
-### Case 1: Python Data Processing
+### 1: Python Data Processing
 - `filter_patients.ipynb` - Jupyter notebook with patient data filtering logic
 - `patients.csv` - Patient dataset with symptoms information
 
-### Case 2: SQL Database and Querying
+### 2: SQL Database and Querying
 - `setup.py` - Database schema creation script
 - `insert_data.py` - Script to populate database with 500+ realistic patient records
 - `cleardb.py` - Database cleanup utility
@@ -17,7 +17,7 @@ This repository contains solutions for the BitHealth technical assessment coveri
 - `test_db` - Database testing utilities
 - `hospital.db` - SQLite database file with patient, visit, and symptom data
 
-### Case 3: FastAPI with LLM Integration
+### 3: FastAPI with LLM Integration
 - `main.py` - FastAPI application with hospital triage recommendation endpoint
 - `llm_service.py` - LangChain service for Google AI integration
 - `streamlit_app.py` - Web interface for the triage system
