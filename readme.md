@@ -92,7 +92,7 @@ Since no database was provided, I created a comprehensive data pipeline:
 - **symptoms**: Individual symptoms per visit (id, visit_id, symptom)
 
 #### Data Generation Strategy
-- Created **500 patients** with realistic Indonesian names
+- Created **500 patients** with Indonesian names
 - Generated **1800+ visits** across 6 medical departments
 - Populated **4900+ symptom records** with medically appropriate symptoms
 - Ensured sufficient data for query requirements (age > 50, Neurology department, ≥3 symptoms)
