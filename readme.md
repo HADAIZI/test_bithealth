@@ -219,7 +219,7 @@ async def recommend_department(patient: PatientInfo):
 - Ensured data distribution supports query requirements
 
 ### Case 3: API Architecture
-- Selected FastAPI for modern Python API development
+- Used FastAPI for modern Python API development
 - Integrated LangChain for LLM provider flexibility
 - Added Streamlit for user-friendly interface
 - Implemented proper error handling and input validation
